@@ -1,0 +1,9 @@
+<center>
+<h1>Show Posts </h1>
+<% @post.post_images.each do |img| %>
+    <%#= img.image.url %>
+    <%= image_tag(img.image.url, class:"rounded float-left", height:"500px", width:"500px")%>
+<% end %>
+</center>
+<br>
+<button><%= link_to "back" , home_index_path %></button>

@@ -1,0 +1,30 @@
+<center>
+<h1 style="color:darkgreen;"> New Form </h1>
+<br>
+<%= form_with model: [ @user , @user.posts.build ] do |form| %> 
+<div>
+    <%=form.label :Title %>
+    <%= form.text_field :title %>
+</div>
+<br><br>
+
+<div>
+    <%=form.label :Image %>
+    <%= form.file_field :image, multiple: true %>
+</div>
+<br><br>
+
+
+<div>
+    <%=form.label :Content %>
+    <%= form.text_field :content %>
+</div>
+<br><br>
+
+<div>
+<%=form.submit %>
+</div> 
+<% end %>
+</center>
+<br>
+<button><%= link_to "back" , home_index_path %></button>

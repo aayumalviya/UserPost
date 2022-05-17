@@ -1,0 +1,21 @@
+<center>
+<h1>Posts</h1>
+<% @user.posts.each do |post| %>
+    <%= post.title %>
+    <br>
+    <%= post.content %>
+    <br>
+<%= link_to "ShowPost",user_post_path(current_user.id, post.id), class: "btn btn-info btn-sm" %>
+<br><br>
+<%= link_to "EditPost",edit_user_post_path(current_user.id, post.id), class: "btn btn-success btn-sm" %>
+<br><br>
+<%= button_to "Delete", user_post_path(current_user.id, post.id), class: "btn btn-danger btn-sm", method: :delete %>
+
+<hr style="width:300px;">
+<% end %>
+<br><br>
+<%= link_to "NewPost", new_user_post_path(current_user.id), class: "btn btn-success btn-lg" %>
+<br><br>
+</center>
+<br>
+<button><%= link_to "back" , home_index_path %></button>

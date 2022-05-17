@@ -1,0 +1,7 @@
+<% like = post.like_posts.find_by(user_id: current_user.id) %>
+<% if like.present? %>
+  <%= button_to "Unlike", post_like_post_path(post.id , like.id), method: :delete,remote: true,class:"btn btn-outline-primary me-1 flex-grow-1" %>
+<% else %>
+  <%= button_to "Like", post_like_posts_path(post.id), method: :post ,remote: true , class:"btn btn-outline-danger me-1 flex-grow-1" %> 
+  <%#= link_to (current_user.like_posts.where(post_id: post.id).present? ? 'Unlike' : "Like"),post_like_posts_path(post), remote: true, id: "like-btn-#{post.id}", class: "card-link text-muted" %>
+<% end %>

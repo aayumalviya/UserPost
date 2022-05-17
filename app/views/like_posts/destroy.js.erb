@@ -1,0 +1,2 @@
+$(".like_count_<%= @post.id %>").html(<%= @post.like_posts.count %>)
+$(".show_<%= @post.id %>").html("<%= j render(:partial => 'like_posts/buttons', locals: {post: @post}) %>")

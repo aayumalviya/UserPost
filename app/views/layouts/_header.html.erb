@@ -1,0 +1,41 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<% if current_user && current_user.profile.present? && current_user.profile.url.present? %>
+<%= image_tag(current_user.profile.url, class:"rounded-circle img-fluid", style:"width: 100px;" )%>
+<% else %>
+<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
+alt="Generic placeholder image" class="img-fluid rounded-circle border border-dark border-3"
+style="width: 70px;">
+<% end %>
+<% if user_signed_in? %>
+
+  <a class="navbar-brand" href="#">  <%= current_user.email %>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+  
+      <%= button_to "Sign_out", destroy_user_session_path, class: "btn btn-danger btn-sm ", method: :delete %><br>
+
+      </li>
+      <li class="nav-item">
+      <%= link_to 'Edit Profile', edit_user_registration_path,class:"btn btn-success btn-sm float-right" %>
+
+      </li>
+      
+      <li class="nav-item">
+      <%= link_to "My Posts", user_posts_path(current_user.id), class: "btn btn-info btn-sm" %>
+      </li>
+      <% else %>
+      <li class="nav-item">
+      <%= link_to "Sign_In", new_user_session_path, class: "btn btn-primary btn-sm" %>
+      </li>
+    </ul>
+    
+  </div>
+  <% end %>
+</nav>

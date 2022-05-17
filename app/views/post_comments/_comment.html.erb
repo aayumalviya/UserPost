@@ -1,0 +1,24 @@
+<h6>Comments</h6>
+<div>
+    <% post.post_comments.each do |com| %>
+      <br>
+        <% if com.content.present? %>
+            <% if com.user.profile.present? && com.user.profile.url.present? %>
+            <%= image_tag(com.user.profile.url, style:"width: 60px; , height:70px;" )%>
+            <% else %>
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
+            alt="Generic placeholder image" class="img-fluid rounded-circle border border-dark border-3"
+            style="width: 70px;">
+            <% end %> 
+        
+        <%= com.user.email %>
+        <br>
+        <%= com.content %>
+      
+        <% if com.user_id === current_user.id %> 
+            <%= button_to "DeleteComment" , post_post_comment_path(post.id,com.id), method: :delete , remote: true %>     
+        <% end %>
+        <% end %> 
+
+    <% end %>
+</div>
