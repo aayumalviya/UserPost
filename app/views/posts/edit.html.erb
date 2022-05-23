@@ -15,6 +15,12 @@
 <br><br>
 
 <div>
+    <%=form.label :Video %>
+    <%= form.file_field :video, multiple: true %>
+</div>
+<br><br>
+
+<div>
     <%=form.label :Content %>
     <%= form.text_field :content %>
 </div>

@@ -1,106 +1,94 @@
+
+
 <br>
-<% @posts.each do |post| %> 
-
-  <br>
-  <div class="main-post-container">
-  <% if post.user.profile.present? && post.user.profile.url.present? %>
-      <%= image_tag(post.user.profile.url, style:"width: 60px; , height:70px; , float:left;" )%>
-  <% else %>
-      <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
-      alt="Generic placeholder image" class="img-fluid rounded-circle border border-dark border-3"
-      style="width: 70px;">
-  <% end %>
-
-  <b><%= post.user.email %></b>
-  <br>
-  <b><%= post.title %></b>
-  <br>
-  
-  <center>
-  <div id="demo<%= post.id %>" class="carousel slide" data-bs-ride="carousel">
-      <!-- The slideshow/carousel -->
-      <div class="carousel-inner">
-        <% post.post_images.each_with_index do |img, index| %>
-          <% if index == 0 %>
-            <div class="carousel-item active">
-              <%= image_tag(img.image.url, height:"500px" , width:"500px", class: "d-block") %>
-            </div>
-          <% else %>
-            <div class="carousel-item">
-              <%= image_tag(img.image.url, height:"500px" , width:"500px", class: "d-block") %>
-            </div>
-          <% end %>
-        <% end %>
-      </div>
-      
-      <!-- Left and right controls/icons -->
-      <button class="carousel-control-prev" type="button" data-bs-target="#demo<%= post.id %>" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#demo<%= post.id %>" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </button>
-    </div>
-
+<div id="posts">
+  <% @posts.each do |post| %> 
 
     <br>
-    <b><%= post.content %></b>
-    <div>
-      <span class="like_count_<%= post.id %>"> <%= post.like_posts.count %> </span>
-       
-      <div class="show_<%= post.id %>">
-        <% like = post.like_posts.find_by(user_id: current_user.id) %>
-        <% if like.present? %>
-          <%= button_to "Unlike", post_like_post_path(post.id , like.id), method: :delete, remote: true ,class:"btn btn-outline-primary me-1 flex-grow-1" %>
-        <% else %>
-          <%= button_to "Like", post_like_posts_path(post.id), method: :post ,remote: true , class:"btn btn-outline-danger me-1 flex-grow-1" %> 
-          <%#= link_to (current_user.like_posts.where(post_id: post.id).present? ? 'Unlike' : "Like"),post_like_posts_path(post), remote: true, id: "like-btn-#{post.id}", class: "card-link text-muted" %>
-        <% end %>
-      </div>
-    </div>
-    </center>
-    <hr style="color:darkgreen">
+    <div class="main-post-container">
+    <% if post.user.profile.present? && post.user.profile.url.present? %>
+        <%= image_tag(post.user.profile.url, style:"width: 60px; , height:70px; , float:left;" )%>
+    <% else %>
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
+        alt="Generic placeholder image" class="img-fluid rounded-circle border border-dark border-3"
+        style="width: 70px;">
+    <% end %>
+
+    <b><%= post.user.email %></b>
+    <br>
+    <b><%= post.title %></b>
+    <br>
     
-    <div>
-      <%= form_for([post, post.post_comments.build], remote: true) do |form| %>
-        <br>
-        <div>
-          <%=form.label :Comment %>
-          <%= form.text_field :content, class: "content_#{post.id}" %>
-        </div>
-        <br>
-        <div>
-          <%= form.submit %>
-        </div>
-      <% end %>
-   </div>
-   <hr style="color:darkgreen">
-    
-  <div class="comment_<%= post.id %>">
-    <h6>Comments</h6>
-    <% post.post_comments.each do |com| %>
-      <div class="com_<%= com.id %>">
-          <% if com.content.present? %>
-              <% if com.user.profile.present? && com.user.profile.url.present? %>
-                <%= image_tag(com.user.profile.url, style:"width: 60px; , height:70px;" )%>
+    <center>
+    <div id="demo<%= post.id %>" class="carousel slide" data-bs-ride="carousel">
+        <!-- The slideshow/carousel -->
+          <div class="carousel-inner">
+            <% post.post_images.each_with_index do |img, index| %>
+              <% if index == 0 %>
+                <div class="carousel-item active">
+                  <%= image_tag(img.image.url, height:"500px" , width:"600px", class: "d-block") %>
+                </div> 
               <% else %>
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
-                alt="Generic placeholder image" class="img-fluid rounded-circle border border-dark border-3"
-                style="width: 70px;">
+                <div class="carousel-item">
+                  <%= image_tag(img.image.url, height:"500px" , width:"600px", class: "d-block") %>
+                </div>
               <% end %>
-              <%= com.user.email %>
-              <br>
-              <%= com.content %>
-              <br>
-              <% if com.user_id === current_user.id %> 
-                <%= button_to "DeleteComment" , post_post_comment_path(post.id, com.id), method: :delete, remote: true %>     
+            <% end %>
+            <% post.post_videos.each_with_index do |vdo, index| %>
+              <% if index == 0 && post.post_images.blank? %>
+                <div class="carousel-item active">
+                  <%= video_tag(vdo.video.url, height:"500px" , width:"600px", class: "d-block", :controls => true) %>
+                </div>
+              <% else %>
+                <div class="carousel-item">
+                  <%= video_tag(vdo.video.url, height:"500px" , width:"600px", class: "d-block", :controls => true) %>
+                </div>
               <% end %>
-            <% end %> 
+            <% end %>
+          </div>
+        
+        <!-- Left and right controls/icons -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#demo<%= post.id %>" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#demo<%= post.id %>" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
+    </div> 
+   
+
+
+      <br>
+      <b><%= post.content %></b>
+      <div>
+        <span class="like_count_<%= post.id %>"> <%= post.like_posts.count %> </span>
+        
+        <div class="show_<%= post.id %>">
+          <% like = post.like_posts.find_by(user_id: current_user.id) %>
+          <% if like.present? %>
+            <%= button_to "Unlike", post_like_post_path(post.id , like.id), method: :delete, remote: true ,class:"btn btn-outline-primary me-1 flex-grow-1" %>
+          <% else %>
+            <%= link_to  "Like",post_like_posts_path(post.id), method: :post ,remote: true , class:"btn btn-outline-danger me-1 flex-grow-1" %>
+          <% end %>
         </div>
-      <% end %>
-  </div>
-  <br>
+          
+          <br>
+          <%= link_to "comments" , new_post_post_comment_path(post.id),class:"btn btn-outline-dark btn-sm" %>
+          
+      </div>
+      <hr style="color:darkgreen">
+      <br>
   </div>
 <% end %>
+</div>
+<%= will_paginate @posts %>
+</center>
 
-  
+
+
+
+
+
+
+
+

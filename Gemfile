@@ -57,3 +57,11 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'jquery-rails'
 gem 'devise'
 gem 'carrierwave', '~> 2.0'
+gem 'will_paginate', '~> 3.3'
+gem 'activeadmin'
+gem 'cancancan'
+gem 'draper'
+gem 'pundit'
+gem 'omniauth-google-oauth2'
+gem 'dotenv-rails'
+gem "omniauth-rails_csrf_protection" 

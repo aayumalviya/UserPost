@@ -34,9 +34,13 @@
                   <div class="pt-1 mb-4">
                   <%= f.submit "Log in" , class:"btn btn-dark btn-lg btn-block" %>
                   </div>
-                    
-                  </form>
-                  <% end %>
+
+                  <div class="pt-1 mb-4">
+                    <%= link_to 'Login With GOOGLE','/auth/google_oauth2', class:"btn btn-outline-danger btn-sm" %>
+                  </div>
+                </form>
+                  
+                <% end %>
 
                   <%= render "users/shared/links" %>
 

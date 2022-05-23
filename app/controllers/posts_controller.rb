@@ -19,9 +19,18 @@ def create
   @post = @user.posts.new(post_params)
 
   if @post.save
-    params[:post][:image].each do |img|
-      @post.post_images.create(image:img)
-  end 
+    if params[:post][:image].present?
+      params[:post][:image].each do |img|
+        @post.post_images.create(image: img)
+      end  
+    end
+
+    if params[:post][:video].present?
+      params[:post][:video].each do |vdo|
+        @post.post_videos.create(video: vdo)
+      end 
+    end 
+
     redirect_to user_posts_path
   else 
     render :new, status: :unprocessable_entity
@@ -63,7 +72,7 @@ end
 
 private
   def post_params
-    params.require(:post).permit(:title, :content , :image)
+    params.require(:post).permit(:title, :content)
   end 
 end 
 
